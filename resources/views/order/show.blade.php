@@ -10,23 +10,30 @@
             @endif
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3 class="m-1">Zlecenie {{ $order->title }} z dnia {{ \Carbon\Carbon::parse($order->created_at)->format('d.m.Y') }}</h3>
-                    <a href="{{ route('edit-order', $order) }}">
-                        <button type="button" class="btn btn-primary m-2">Edytuj zlecenie</button>
-                    </a>
+                    <h3 class="m-1">Zlecenie: {{ $order->title }} z dnia {{ \Carbon\Carbon::parse($order->created_at)->format('d.m.Y') }}</h3>
+                    <div class="d-inline-flex">
+                        <a href="{{ route('edit-order', $order) }}">
+                            <button type="button" class="btn btn-primary m-2">Edytuj zlecenie</button>
+                        </a>
+                        <form method="post" action="{{ route('destroy-order', $order->id) }}">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-danger m-2">Usuń zlecenie</button>
+                        </form>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table">
                         <tbody>
                         <tr>
-                            <th>Nazwa/tytuł</th>
-                            <td>{{ $order->title }}</td>
+                            <th class="align-middle">Nazwa/tytuł</th>
+                            <td class="align-middle">{{ $order->title }}</td>
                         </tr><tr>
-                            <th>Opis</th>
-                            <td>{{ $order->description }}</td>
+                            <th class="align-middle">Opis</th>
+                            <td class="align-middle">{{ $order->description }}</td>
                         </tr><tr>
-                            <th>Priorytet</th>
-                            <td>
+                            <th class="align-middle">Priorytet</th>
+                            <td class="align-middle">
                                 @if($order->priority === 'high')
                                     <span class="badge text-bg-danger fs-6">Wysoki</span>
                                 @elseif($order->priority === 'normal')
@@ -36,18 +43,18 @@
                                 @endif
                             </td>
                         </tr><tr>
-                            <th>Przewidywane ukończenie</th>
-                            <td>{{ \Carbon\Carbon::parse($order->due)->format('j F Y') }}</td>
+                            <th class="align-middle">Przewidywane ukończenie</th>
+                            <td class="align-middle">{{ \Carbon\Carbon::parse($order->due)->format('j F Y') }}</td>
                         </tr><tr>
-                            <th>Wycena/kwota</th>
-                            <td>{{ $order->amount }}</td>
+                            <th class="align-middle">Wycena/kwota</th>
+                            <td class="align-middle">{{ $order->amount }}</td>
                         </tr><tr>
-                            <th>Status</th>
-                            <td>
+                            <th class="align-middle">Status</th>
+                            <td class="align-middle">
                                 @if($order->status === 'pending')
-                                    <span class="badge text-bg-primary fs-6">Zapisane</span>
-                                @elseif($order->status === 'confirmed')
-                                    <span class="badge text-bg-info fs-6">W trakcie</span>
+                                    <span class="badge text-bg-secondary fs-6">Zapisane</span>
+                                @elseif($order->status === 'paid')
+                                    <span class="badge text-bg-primary fs-6">Opłacone</span>
                                 @elseif($order->status === 'finished')
                                     <span class="badge text-bg-success fs-6">Zakończone</span>
                                 @elseif($order->status === 'cancelled')

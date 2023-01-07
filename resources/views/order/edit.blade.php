@@ -36,7 +36,7 @@
                                 {{--<input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}" required>--}}
                                 <select class="form-select @error('status') is-invalid @enderror" name="status" id="status">
                                     <option @if($order->status === 'pending') selected @endif value="pending">Zapisane</option>
-                                    <option @if($order->status === 'confirmed') selected @endif value="confirmed">W trakcie</option>
+                                    <option @if($order->status === 'paid') selected @endif value="paid">Opłacone</option>
                                     <option @if($order->status === 'finished') selected @endif value="finished">Zakończone</option>
                                     <option @if($order->status === 'cancelled') selected @endif value="cancelled">Anulowane</option>
                                     <option @if($order->status === 'problem') selected @endif value="problem">Problem</option>

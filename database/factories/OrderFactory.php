@@ -19,12 +19,12 @@ class OrderFactory extends Factory
     {
         $prior = ['high', 'normal', 'low'];
         return [
-            'title' => fake()->domainName(),
+            'title' => fake()->name(),
             'description' => fake()->realText(),
             'priority' => $prior[random_int(0, 2)],
             'due' => fake()->dateTimeBetween(now(), '+4 weeks'),
             'client_id' => Client::factory(),
-            'amount' => fake()->randomFloat()
+            'amount' => fake()->randomFloat(2, 20, 1000)
         ];
     }
 }

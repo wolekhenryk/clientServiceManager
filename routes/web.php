@@ -36,6 +36,8 @@ Route::get('/view-orders/order/{order}', [OrderController::class, 'show'])->name
 
 Route::get('/view-orders/order/{order}/edit', [OrderController::class, 'edit'])->name('edit-order');
 
+Route::get('/view-clients/client/{client}/edit', [ClientController::class, 'edit'])->name('edit-client');
+
 //POST
 
 Route::post('/add-client', [ClientController::class, 'store'])->name('save-client');
@@ -45,6 +47,14 @@ Route::post('/orders/create/client/{client}', [OrderController::class, 'store'])
 //PUT
 
 Route::put('/view-orders/order/{order}/edit', [OrderController::class, 'update'])->name('update-order');
+
+Route::put('/view-clients/client/{client}/edit', [ClientController::class, 'update'])->name('update-client');
+
+//DESTROY
+
+Route::delete('/view-orders/order/{order}/delete', [OrderController::class, 'destroy'])->name('destroy-order');
+
+Route::delete('/view-clients/client/{client}', [ClientController::class, 'destroy'])->name('destroy-client');
 
 
 Auth::routes();

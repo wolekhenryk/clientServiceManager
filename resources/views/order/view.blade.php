@@ -3,6 +3,11 @@
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @if(\Illuminate\Support\Facades\Session::has('delete-danger'))
+                <div class="alert alert-danger align-items-center align-content-center" role="alert">
+                    {{  \Illuminate\Support\Facades\Session::get('delete-danger') }}
+                </div>
+            @endif
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h3 class="m-1">Wszystkie zlecenia</h3>
@@ -18,6 +23,7 @@
                             <th scope="col">Priorytet</th>
                             <th scope="col">Przewidywane ukończenie</th>
                             <th scope="col">Wycena/kwota</th>
+                            <th scope="col">Płatność</th>
                             <th scope="col">Klient</th>
                             <th scope="col">Data dodania</th>
                             <th scope="col">Status</th>
@@ -26,39 +32,46 @@
                         <tbody>
                         @foreach($orders as $order)
                             <tr class="align-items-center justify-content-center">
-                                <th class="align-middle">{{ $order->id }}</th>
-                                <th class="align-middle">
+                                <td class="align-middle">{{ $order->id }}</td>
+                                <td class="align-middle">
                                     <a href="{{ route('show-order', $order) }}">
                                         {{ \Illuminate\Support\Str::limit($order->title, 32) }}
                                     </a>
-                                </th>
-                                <th class="align-middle">{{ \Illuminate\Support\Str::limit($order->description, 64) }}</th>
-                                <th class="align-middle" scope="row">
+                                </td>
+                                <td class="align-middle">{{ \Illuminate\Support\Str::limit($order->description, 64) }}</td>
+                                <td class="align-middle" scope="row">
                                     @if($order->priority === 'high')
-                                        <span class="badge text-bg-danger fs-6">Wysoki</span>
+                                        <span class="badge text-bg-danger">Wysoki</span>
                                     @elseif($order->priority === 'normal')
-                                        <span class="badge text-bg-primary fs-6">Normalny</span>
+                                        <span class="badge text-bg-primary">Normalny</span>
                                     @else
-                                        <span class="badge text-bg-secondary fs-6">Niski</span>
+                                        <span class="badge text-bg-secondary">Niski</span>
                                     @endif
-                                </th>
-                                <th class="align-middle text-justify">{{ \Carbon\Carbon::parse($order->due)->format('j F Y') }}</th>
-                                <th class="align-middle">{{ $order->amount }} PLN</th>
-                                <th class="align-middle">{{ $order->client->name  }} {{ __(' ') }} {{ $order->client->surname }}</th>
-                                <th class="align-middle">{{ \Carbon\Carbon::parse($order->created_at)->format('j F Y') }}</th>
-                                <th class="align-middle">
+                                </td>
+                                <td class="align-middle text-justify">{{ \Carbon\Carbon::parse($order->due)->format('d.m.Y') }}</td>
+                                <td class="align-middle">{{ $order->amount }} PLN</td>
+                                <td class="align-middle">
+                                    @if($order->payment_type === 'in-advance')
+                                        <span class="badge text-bg-success">Z góry</span>
+                                    @else
+                                        <span class="badge text-bg-primary">Przy odbiorze</span>
+                                    @endif
+                                </td>
+                                <td class="align-middle">{{ $order->client->name  }} {{ __(' ') }} {{ $order->client->surname }}</td>
+                                <td class="align-middle">{{ \Carbon\Carbon::parse($order->created_at)->format('d.m.Y') }}</td>
+                                <td class="align-middle">
                                     @if($order->status === 'pending')
-                                        <span class="badge text-bg-primary fs-6">Zapisane</span>
-                                    @elseif($order->status === 'confirmed')
-                                        <span class="badge text-bg-info fs-6">W trakcie</span>
+                                        <span class="badge text-bg-secondary">Zapisane</span>
+                                    @elseif($order->status === 'paid')
+                                        <span class="badge text-bg-primary">Opłacone</span>
                                     @elseif($order->status === 'finished')
-                                        <span class="badge text-bg-success fs-6">Zakończone</span>
+                                        <span class="badge text-bg-success">Zakończone</span>
                                     @elseif($order->status === 'cancelled')
-                                        <span class="badge text-bg-danger fs-6">Anulowane</span>
+                                        <span class="badge text-bg-danger">Anulowane</span>
                                     @else
-                                        <span class="badge text-bg-warning fs-6">Problem</span>
+                                        <span class="badge text-bg-warning">Problem</span>
                                     @endif
-                                </th>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

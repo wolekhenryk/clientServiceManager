@@ -21,8 +21,9 @@ return new class extends Migration
             $table->string('due');
             $table->double('amount');
             $table->string('status')->default('pending');
+            $table->string('payment_type')->default('in-advance');
             $table->unsignedBigInteger('client_id');
-            $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->timestamps();
         });
     }

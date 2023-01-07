@@ -55,35 +55,29 @@ class ClientController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
      */
     public function edit(Client $client)
     {
-        //
+        return view('client.edit', [
+            'client' => $client
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Client $client)
     {
-        //
+        $client->update($request->all());
+        return redirect(route('view-clients'))->with('success', 'Zapisano zmiany w danych klienta');
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
      */
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+        return redirect(route('view-clients'))->with('delete-danger', 'Klient został usunięty z bazy danych');
     }
 }

@@ -61,7 +61,6 @@
                         </div>
                         <div class="row mb-3">
                             <label for="amount" class="col-md-4 col-form-label text-md-end">{{ __('Wycena zlecenia (oddzielone kropką)') }}</label>
-
                             <div class="col-md-6">
                                 <input id="amount" type="number" step="0.01" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount') }}" required>
 
@@ -70,6 +69,27 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="payment-type" class="col-md-4 col-form-label text-md-end align-middle mt-1">{{ __('Rodzaj płatności') }}</label>
+                            <div class="col md-6">
+                                <div id="payment-type">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="payment_type" value="in-advance" id="payment_type1" checked>
+                                        <label class="form-check-label" for="payment_type1">
+                                            Płatność z góry
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="payment_type" value="on-delivery" id="payment_type2">
+                                        <label class="form-check-label" for="payment_type2">
+                                            Płatność przy odbiorze
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-3">
