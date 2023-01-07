@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('priority');
             $table->string('due');
             $table->double('amount');
+            $table->string('status')->default('pending');
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')->references('id')->on('clients');
             $table->timestamps();

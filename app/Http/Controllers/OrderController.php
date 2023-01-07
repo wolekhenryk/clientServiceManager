@@ -36,36 +36,31 @@ class OrderController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
      */
     public function show(Order $order)
     {
-        //
+        return view('order.show', [
+            'order' => $order
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
      */
     public function edit(Order $order)
     {
-        //
+        return view('order.edit', [
+            'order' => $order
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Order $order)
     {
-        //
+        $order->update($request->all());
+        return redirect(route('show-order', $order))->with('order-success', 'Zapisano zmiany w poniższym zleceniu.');
     }
 
     /**

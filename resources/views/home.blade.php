@@ -10,12 +10,7 @@
         @endif
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <p class="display-6 mb-0">Główny panel</p>
-                <a href="{{ route('add-client') }}">
-                    <button type="button" class="btn btn-primary float-end">
-                        Dodaj klienta
-                    </button>
-                </a>
+                <h3 class="m-1">Główny panel</h3>
             </div>
 
             <div class="card-body">

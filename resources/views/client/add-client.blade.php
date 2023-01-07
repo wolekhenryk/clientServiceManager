@@ -5,7 +5,7 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <p class="display-6 mb-0">Dodaj klienta</p>
+                <h3 class="m-1">Dodaj klienta</h3>
             </div>
 
             <div class="card-body">
@@ -67,7 +67,7 @@
                     <div class="row mb-3">
                         <label for="description" class="col-md-4 col-form-label text-md-end">{{ __('Opis/uwagi') }}</label>
                         <div class="col-md-6">
-                            <textarea class="form-control" placeholder="Opcjonalne" id="description" name="description"></textarea>
+                            <textarea class="form-control" style="height: 200px" placeholder="Opcjonalne" id="description" name="description"></textarea>
                             @error('description')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

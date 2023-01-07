@@ -5,7 +5,12 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <p class="display-6 mb-0">Wszyscy klienci</p>
+                    <h3 class="m-1">Wszyscy klienci</h3>
+                    <a href="{{ route('add-client') }}">
+                        <button type="button" class="btn btn-primary float-end">
+                            Dodaj klienta
+                        </button>
+                    </a>
                 </div>
 
                 <div class="card-body">
@@ -13,8 +18,7 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Imię</th>
-                            <th scope="col">Nazwisko</th>
+                            <th scope="col">Imię i nazwisko</th>
                             <th scope="col">Kontakt</th>
                             <th scope="col">Adres</th>
                             <th scope="col">Ilość zleceń</th>
@@ -28,10 +32,9 @@
                                 <th scope="row">{{ $client->id }}</th>
                                 <th scope="row">
                                     <a href="{{ route('show-client', $client->id) }}">
-                                        {{ $client->name }}
+                                        {{ $client->name }} {{ $client->surname }}
                                     </a>
                                 </th>
-                                <th scope="row">{{ $client->surname }}</th>
                                 <th scope="row">{{ $client->contact }}</th>
                                 <th scope="row">{{ $client->address }}</th>
                                 <th scope="row">{{ $client->orders()->count() }}</th>
